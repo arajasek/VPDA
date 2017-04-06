@@ -1,7 +1,6 @@
 #ifndef AUTOMATON_STATE_H
 #define AUTOMATON_STATE_H
 
-#include "StackAlphabet.h"
 #include <stack>
 
 class AutomatonState {

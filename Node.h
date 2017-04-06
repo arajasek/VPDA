@@ -2,7 +2,6 @@
 #define NODE_H
 #include <string>
 #include <vector>
-#include "StackAlphabet.h"
 typedef std::vector<std::pair<unsigned int, unsigned int> > StackTransition;
 typedef std::vector<unsigned int> LocalTransition;
 
