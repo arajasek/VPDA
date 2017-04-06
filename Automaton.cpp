@@ -1,8 +1,10 @@
 #include "Automaton.h"
+#include <iostream>
 using namespace std;
 
-void Automaton::run() {
+void Automaton::run(std::string inp) {
 	accepted = false;
+	input = inp;
 	stack<unsigned int> stk;
 	AutomatonState init (0, 0, stk);
 	States.push(init);
@@ -11,6 +13,11 @@ void Automaton::run() {
 		States.pop();
 		processState(s);
 	}
+	if (accepted)
+		std::cout << "accepted "<<input<<endl;
+	else
+		std::cout<<"rejected!"<<endl;
+	return;
 }
 
 void Automaton::processState(AutomatonState s) {
@@ -26,7 +33,7 @@ void Automaton::processState(AutomatonState s) {
 
 	LocalTransition lTransitions;
 	StackTransition sTransitions;
-	unsigned int topOfStack = stk.top();
+	unsigned int topOfStack;
 
 	char inputBit = input.at(progress);
 	switch (inputBit) {
@@ -61,6 +68,7 @@ void Automaton::processState(AutomatonState s) {
 			}
 		break;
 		case 'e':
+		topOfStack = stk.top();
 		sTransitions = currNode.getETransitions();
 		stk.pop();
 		for (int i = 0; i < sTransitions.size(); i++) {
@@ -71,6 +79,7 @@ void Automaton::processState(AutomatonState s) {
 		}
 		break;
 		case 'f':
+		topOfStack = stk.top();
 		sTransitions = currNode.getFTransitions();
 		stk.pop();
 		for (int i = 0; i < sTransitions.size(); i++) {

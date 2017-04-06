@@ -4,4 +4,5 @@ AutomatonState::AutomatonState(unsigned int prog, unsigned int currNode, std::st
 	inputProgress = prog;
 	nodeId = currNode;
 	s = stk;
+	
 }
