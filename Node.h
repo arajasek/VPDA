@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "StackAlphabet.h"
-typedef std::vector<std::pair<unsigned int, StackAlphabet> > StackTransition;
+typedef std::vector<std::pair<unsigned int, unsigned int> > StackTransition;
 typedef std::vector<unsigned int> LocalTransition;
 
 class Node {
