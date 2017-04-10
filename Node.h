@@ -2,6 +2,8 @@
 #define NODE_H
 #include <string>
 #include <vector>
+// pairs of (destination state, stack letter)
+// stack letter 0 corresponds to "anything"
 typedef std::vector<std::pair<unsigned int, unsigned int> > StackTransition;
 typedef std::vector<unsigned int> LocalTransition;
 
