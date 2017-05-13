@@ -3,6 +3,11 @@
 using namespace std;
 
 void Automaton::run(std::string inp) {
+
+	//Clear the states queue
+	std::queue <AutomatonState> q;
+	States = q;
+
 	accepted = false;
 	input = inp;
 	stack<unsigned int> stk;
@@ -14,13 +19,14 @@ void Automaton::run(std::string inp) {
 		processState(s);
 	}
 	if (accepted)
-		std::cout << "accepted "<<input<<endl;
+		std::cout << "Accepted "<< input << endl;
 	else
-		std::cout<<"rejected!"<<endl;
+		std::cout<<"Rejected " << input << endl;
 	return;
 }
 
 void Automaton::processState(AutomatonState s) {
+//	cout << "processing "<<s.getNodeId()<<endl;
 	Node currNode = Nodes.at(s.getNodeId());
 	unsigned int progress = s.getProgress();
 	stack<unsigned int> stk = s.getStack();
@@ -72,7 +78,7 @@ void Automaton::processState(AutomatonState s) {
 		sTransitions = currNode.getETransitions();
 		stk.pop();
 		for (int i = 0; i < sTransitions.size(); i++) {
-			if (sTransitions.at(i).second == topOfStack) {
+			if (sTransitions.at(i).second == topOfStack || sTransitions.at(i).second == 0) {
 				AutomatonState newState (progress + 1, sTransitions.at(i).first, stk);
 				States.push(newState);
 			}
@@ -83,7 +89,7 @@ void Automaton::processState(AutomatonState s) {
 		sTransitions = currNode.getFTransitions();
 		stk.pop();
 		for (int i = 0; i < sTransitions.size(); i++) {
-			if (sTransitions.at(i).second == topOfStack) {
+			if (sTransitions.at(i).second == topOfStack || sTransitions.at(i).second == 0) {
 				AutomatonState newState (progress + 1, sTransitions.at(i).first, stk);
 				States.push(newState);
 			}

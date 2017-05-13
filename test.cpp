@@ -1,9 +1,58 @@
 #include "Node.h"
 #include "Automaton.h"
 #include <iostream>
+#include <bitset>
+#include <math.h>
+#include <algorithm>
 
 using namespace std;
+
+void convertOdd(string &s) {
+	for (int i = 0; i < s.size()/2; i++) {
+		if (s.at(i) == '0')
+			s.at(i) = 'a';
+		else
+			s.at(i) = 'b';
+	}
+
+	if (s.at(s.size()/2) == '0')
+		s.at(s.size()/2) = 'c';
+	else
+		s.at(s.size()/2) = 'd';
+
+	for (int i = s.size()/2 + 1; i < s.size(); i++) {
+		if (s.at(i) == '0')
+			s.at(i) = 'e';
+		else
+			s.at(i) = 'f';
+	}
+}
+
+void convertEven(string &s) {
+	for (int i = 0; i < s.size()/2; i++) {
+		if (s.at(i) == '0')
+			s.at(i) = 'a';
+		else
+			s.at(i) = 'b';
+	}
+
+	for (int i = s.size()/2; i < s.size(); i++) {
+		if (s.at(i) == '0')
+			s.at(i) = 'e';
+		else
+			s.at(i) = 'f';
+	}
+}
+
+void convert(string &s) {
+	if (s.size() % 2 == 0)
+		convertEven(s);
+	else
+		convertOdd(s);
+}
+
 int main() {
+
 	Automaton a;
 	Node f0, f1, s0, s1, t00, t01, t10, t11, u000, u001, u010, u011, u100, u101, u110, u111;
 	std::pair <unsigned int, unsigned int> p;
@@ -448,4 +497,21 @@ int main() {
 
 	sTransitions.clear();
 	a.addNode(u111);
+
+// try all binary strings
+
+	for (unsigned int i = 2; i <= 5; i++) {
+		int counter = 0;
+		unsigned int limit = pow (2,i);
+		for (unsigned int j = 0; j < limit; j++) {
+			string word = bitset< 64 >( j ).to_string();
+			word = word.substr(word.size() - i, i);
+			if (word.at(0) == '0')
+				continue;
+			std::reverse(word.begin(),word.end());
+			convert (word);
+			//cout << "Trying " <<word<<endl;
+			a.run(word);
+		}
+	}
 }
