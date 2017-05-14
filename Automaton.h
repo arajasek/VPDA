@@ -12,7 +12,7 @@ class Automaton {
 	std::vector <Node> Nodes;
 	std::queue <AutomatonState> States;
 public:
-	void run(std::string s);
+	bool run(std::string s);
 	void processState(AutomatonState);
 	void addNode(Node n) { Nodes.push_back(n); }
 };

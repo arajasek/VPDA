@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-void Automaton::run(std::string inp) {
+bool Automaton::run(std::string inp) {
 
 	//Clear the states queue
 	std::queue <AutomatonState> q;
@@ -19,10 +19,9 @@ void Automaton::run(std::string inp) {
 		processState(s);
 	}
 	if (accepted)
-		std::cout << "Accepted "<< input << endl;
+		return true;
 	else
-		std::cout<<"Rejected " << input << endl;
-	return;
+		return false;
 }
 
 void Automaton::processState(AutomatonState s) {

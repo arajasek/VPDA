@@ -54,6 +54,7 @@ void convert(string &s) {
 int main() {
 
 	Automaton a;
+	//txy indicates carryover of x, expected next digit of y
 	Node f0, f1, s0, s1, t00, t01, t10, t11, u000, u001, u010, u011, u100, u101, u110, u111;
 	std::pair <unsigned int, unsigned int> p;
 	StackTransition sTransitions;
@@ -511,7 +512,8 @@ int main() {
 			std::reverse(word.begin(),word.end());
 			convert (word);
 			//cout << "Trying " <<word<<endl;
-			a.run(word);
+			if(a.run(word))
+				cout<<"accepted " << j << " aka " << word << endl;
 		}
 	}
 }
