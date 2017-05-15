@@ -31,8 +31,11 @@ void Automaton::processState(AutomatonState s) {
 	stack<unsigned int> stk = s.getStack();
 
 	if (progress == input.size()) {
-		if (stk.empty() && currNode.getFinal())
+		if (currNode.getFinal()) {
+			if (!stk.empty())
+				cout<<"in state "<<currNode.getId()<<" but stk is bad\n" << stk.top() << " "<<stk.size();
 			accepted = true;
+		}
 		return;
 	}
 
@@ -48,6 +51,7 @@ void Automaton::processState(AutomatonState s) {
 				stk.push(sTransitions.at(i).second);
 				AutomatonState newState (progress + 1, sTransitions.at(i).first, stk);
 				States.push(newState);
+				stk.pop();
 			}
 		break;
 		case 'b':
@@ -56,6 +60,7 @@ void Automaton::processState(AutomatonState s) {
 				stk.push(sTransitions.at(i).second);
 				AutomatonState newState (progress + 1, sTransitions.at(i).first, stk);
 				States.push(newState);
+				stk.pop();
 			}
 		break;
 		case 'c':

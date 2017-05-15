@@ -51,7 +51,7 @@ void convert(string &s) {
 		convertOdd(s);
 }
 
-int main() {
+Automaton create2Simulator() {
 
 	Automaton a;
 	//txy indicates carryover of x, expected next digit of y
@@ -313,195 +313,19 @@ int main() {
 	t11.setFTransitions(sTransitions);
 
 	sTransitions.clear();
+	t11.setFinal(true);
 	a.addNode(t11);
 
-//u000 starts
+	return a;
+}
 
-	u000.setName("u000");
-	u000.setId(8);
+int main() {
 
-	p.first = 8;
-	p.second = 1;
-	sTransitions.push_back(p);
-	p.first = 12;
-	p.second = 3;
-	sTransitions.push_back(p);
-	u000.setETransitions(sTransitions);
-
-	sTransitions.clear();
-
-	p.first = 9;
-	p.second = 1;
-	sTransitions.push_back(p);
-	p.first = 13;
-	p.second = 3;
-	sTransitions.push_back(p);
-	u000.setFTransitions(sTransitions);
-
-	sTransitions.clear();
-	a.addNode(u000);
-
-//u001 starts
-
-	u001.setName("u001");
-	u001.setId(9);
-
-	p.first = 10;
-	p.second = 1;
-	sTransitions.push_back(p);
-	p.first = 14;
-	p.second = 3;
-	sTransitions.push_back(p);
-	u001.setETransitions(sTransitions);
-
-	sTransitions.clear();
-
-	p.first = 11;
-	p.second = 1;
-	sTransitions.push_back(p);
-	p.first = 15;
-	p.second = 3;
-	sTransitions.push_back(p);
-	u001.setFTransitions(sTransitions);
-
-	sTransitions.clear();
-	a.addNode(u001);
-
-//u010 starts
-
-	u010.setName("u010");
-	u010.setId(10);
-
-	p.first = 8;
-	p.second = 2;
-	sTransitions.push_back(p);
-	u010.setETransitions(sTransitions);
-
-	sTransitions.clear();
-
-	p.first = 9;
-	p.second = 2;
-	sTransitions.push_back(p);
-	u010.setFTransitions(sTransitions);
-
-	sTransitions.clear();
-	a.addNode(u010);
-
-//u011 starts
-
-	u011.setName("u011");
-	u011.setId(11);
-
-	p.first = 10;
-	p.second = 2;
-	sTransitions.push_back(p);
-	u011.setETransitions(sTransitions);
-
-	sTransitions.clear();
-
-	p.first = 11;
-	p.second = 2;
-	sTransitions.push_back(p);
-	u011.setFTransitions(sTransitions);
-
-	sTransitions.clear();
-	a.addNode(u011);
-
-//u100 starts
-
-	u100.setName("u100");
-	u100.setId(12);
-
-	p.first = 12;
-	p.second = 2;
-	sTransitions.push_back(p);
-	u100.setETransitions(sTransitions);
-
-	sTransitions.clear();
-
-	p.first = 13;
-	p.second = 2;
-	sTransitions.push_back(p);
-	u100.setFTransitions(sTransitions);
-
-	sTransitions.clear();
-	a.addNode(u100);
-
-//u101 starts
-
-	u101.setName("u101");
-	u101.setId(13);
-
-	p.first = 14;
-	p.second = 2;
-	sTransitions.push_back(p);
-	u101.setETransitions(sTransitions);
-
-	sTransitions.clear();
-
-	p.first = 15;
-	p.second = 2;
-	sTransitions.push_back(p);
-	u101.setFTransitions(sTransitions);
-
-	sTransitions.clear();
-	a.addNode(u101);
-
-//u110 starts
-
-	u110.setName("u110");
-	u110.setId(14);
-
-	p.first = 8;
-	p.second = 1;
-	sTransitions.push_back(p);
-	p.first = 12;
-	p.second = 3;
-	sTransitions.push_back(p);
-	u110.setETransitions(sTransitions);
-
-	sTransitions.clear();
-
-	p.first = 9;
-	p.second = 1;
-	sTransitions.push_back(p);
-	p.first = 13;
-	p.second = 3;
-	sTransitions.push_back(p);
-	u110.setFTransitions(sTransitions);
-
-	sTransitions.clear();
-	a.addNode(u110);
-
-//u111 starts
-
-	u111.setName("u111");
-	u111.setId(14);
-
-	p.first = 10;
-	p.second = 1;
-	sTransitions.push_back(p);
-	p.first = 14;
-	p.second = 3;
-	sTransitions.push_back(p);
-	u111.setETransitions(sTransitions);
-
-	sTransitions.clear();
-
-	p.first = 11;
-	p.second = 1;
-	sTransitions.push_back(p);
-	p.first = 15;
-	p.second = 3;
-	sTransitions.push_back(p);
-	u111.setFTransitions(sTransitions);
-
-	sTransitions.clear();
-	a.addNode(u111);
+	Automaton a = create2Simulator();
 
 // try all binary strings
 
-	for (unsigned int i = 2; i <= 5; i++) {
+	for (unsigned int i = 2; i <= 10; i++) {
 		int counter = 0;
 		unsigned int limit = pow (2,i);
 		for (unsigned int j = 0; j < limit; j++) {
@@ -511,9 +335,8 @@ int main() {
 				continue;
 			std::reverse(word.begin(),word.end());
 			convert (word);
-			//cout << "Trying " <<word<<endl;
 			if(a.run(word))
-				cout<<"accepted " << j << " aka " << word << endl;
+				cout<<"accepted " << j <<endl;
 		}
 	}
 }
